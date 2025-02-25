@@ -1,0 +1,32 @@
+locals {
+  cloudwatch = {
+    lambda_log_group_prefix = "/aws/lambda"
+  }
+  iam = {
+    lambda_managed_policy_arns = length(var.vpc_subnet_ids) > 0 ? [aws_iam_policy.aws_lambda_basic_execution.arn, aws_iam_policy.aws_lambda_vpc_access_execution.arn] : [aws_iam_policy.aws_lambda_basic_execution.arn]
+    python_lambda_layer_builder = {
+      name_prefix = substr(module.label.id, 0, 36)
+    }
+  }
+  kms = {
+    alias       = substr(replace("alias/${module.label.id}-${var.lambda_function_runtime}-${var.lambda_function_architecture}", ".", "_"), 0, 255)
+    description = substr(replace("KMS Key for ${module.label.id}-${var.lambda_function_runtime}-${var.lambda_function_architecture} solution", ".", "_"), 0, 8191)
+  }
+  lambda = {
+    architectures = [var.lambda_function_architecture]
+    description   = "Creates Lambda layers for ${var.lambda_function_runtime} (${var.lambda_function_architecture})"
+    function_name = substr(replace("${module.label.id}-${var.lambda_function_runtime}-${var.lambda_function_architecture}", ".", "_"), 0, 63)
+    handler       = "lambda_function.lambda_handler"
+    memory_size   = 10240
+    runtime       = var.lambda_function_runtime
+    timeout       = 900
+  }
+  s3 = {
+    python_lambda_layer_builder = {
+      sse_algorithm = "aws:kms"
+      versioning    = "Enabled"
+    }
+  }
+  solution_name    = "python-lambda-layer-builder"
+  target_s3_bucket = var.create_s3_bucket ? aws_s3_bucket.python_lambda_layer_builder["bucket"].id : var.s3_bucket_name
+}
