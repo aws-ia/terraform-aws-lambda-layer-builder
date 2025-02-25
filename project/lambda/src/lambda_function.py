@@ -84,10 +84,10 @@ def pip_install(requirements: str, install_dir: str) -> None:
         f.write(requirements)
 
     logger.info("Downloading packages - ")
-    subprocess.call("cat " + req_path, shell=True)
+    subprocess.call("cat " + req_path)
 
     retcode = subprocess.call(
-        "pip3 install -r " + req_path + " --target " + install_dir, shell=True
+        "pip3 install -r " + req_path + " --target " + install_dir
     )
 
     if retcode != 0:
@@ -232,7 +232,8 @@ def lambda_handler(
 
         # Run the workflow
         logger.info("Creating Directory - " + install_dir)
-        os.system("mkdir -p " + install_dir)
+        os.makedirs(install_dir, exist_ok=True)
+        
 
         if install_from_pip:
             pip_packages = event["pip_packages"]
