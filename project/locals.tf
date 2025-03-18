@@ -28,5 +28,15 @@ locals {
     }
   }
   solution_name    = "python-lambda-layer-builder"
-  target_s3_bucket = var.create_s3_bucket ? aws_s3_bucket.python_lambda_layer_builder["bucket"].id : var.s3_bucket_name
+  random_suffix = random_string.bucket_suffix.result
+  bucket_name = "python-lambda-layer-${local.random_suffix}"
+  target_s3_bucket = var.create_s3_bucket ? aws_s3_bucket.python_lambda_layer_builder["bucket"].id : local.bucket_name
+
 }
+
+resource "random_string" "bucket_suffix" {
+  length  = 8
+  special = false
+  upper   = false
+}
+

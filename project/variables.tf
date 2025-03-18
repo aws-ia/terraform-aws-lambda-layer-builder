@@ -14,7 +14,7 @@ variable "lambda_function_architecture" {
 variable "lambda_function_runtime" {
   description = "Runtime for the Lambda Function / Layer being built"
   type        = string
-  default     = "python3.13"
+  default     = "python3.10"
 
   validation {
     condition     = contains(["python3.9", "python3.10", "python3.11", "python3.12", "python3.13"], var.lambda_function_runtime)
@@ -33,7 +33,9 @@ variable "tags" {
 variable "label_env" {
   description = "environment, e.g. 'sit', 'uat', 'prod' etc"
   type        = string
+  default     = "test"
 }
+
 
 variable "label_id_order" {
   description = "The order in which the `id` is constructed."
@@ -43,6 +45,8 @@ variable "label_id_order" {
 variable "label_namespace" {
   type        = string
   description = "namespace, which could be your organization name, e.g. amazon"
+  default     = "my-aws-test-ns"
+
 }
 
 #########################################
@@ -77,16 +81,6 @@ variable "create_s3_bucket" {
   validation {
     condition     = contains([true, false], var.create_s3_bucket)
     error_message = "Valid values for var: create_s3_bucket are (true, false)."
-  }
-}
-
-variable "s3_bucket_name" {
-  description = "If `create_s3_bucket` is `true`, then this is the name prefix for the new bucket. Otherwise, this is the name of an existing bucket to leverage"
-  type        = string
-
-  validation {
-    condition     = length(var.s3_bucket_name) > 0
-    error_message = "Variable var: s3_bucket_name cannot be empty."
   }
 }
 

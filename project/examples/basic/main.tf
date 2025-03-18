@@ -1,5 +1,8 @@
-#####################################################################################
-# Terraform module examples are meant to show an _example_ on how to use a module
-# per use-case. The code below should not be copied directly but referenced in order
-# to build your own root module that invokes this module
-#####################################################################################
+module "terraform-aws-lambda-layer-buidler" {
+  source = "../.."
+
+  label_env        = "dev"
+  label_namespace  = "aws"
+  s3_bucket_name   = "example"
+  s3_force_destroy = true
+}

@@ -35,7 +35,7 @@ func TestVariablesValidation(t *testing.T) {
         terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
             TerraformDir: "../",
             Vars: map[string]interface{}{
-                "lambda_function_runtime": "python3.13",
+                "lambda_function_runtime": "python3.10",
             },
         })
         
@@ -67,17 +67,6 @@ func TestVariablesValidation(t *testing.T) {
         terraform.Plan(t, terraformOptions)
     })
 
-    t.Run("s3_bucket_name_validation", func(t *testing.T) {
-        terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-            TerraformDir: "../",
-            Vars: map[string]interface{}{
-                "s3_bucket_name": "",
-            },
-        })
-        
-        _, err := terraform.InitAndPlanE(t, terraformOptions)
-        assert.Error(t, err)
-    })
 }
 
 func TestRequiredVariables(t *testing.T) {
