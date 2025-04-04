@@ -1,3 +1,4 @@
 output "lambda_function_arn" {
-  value = aws_lambda_function.python_lambda_layer_builder.arn
+  description = "The ARN of the Lambda function"
+  value       = aws_lambda_function.terraform-aws-lambda-layer-builder.arn
 }

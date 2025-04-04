@@ -1,17 +1,17 @@
-resource "aws_kms_key" "python_lambda_layer_builder" {
+resource "aws_kms_key" "terraform-aws-lambda-layer-builder" {
   #checkov:skip=CKV_AWS_7:KMS Key rotation is optional, if dictated by customer policies
 
   description = local.kms.description
-  policy      = data.aws_iam_policy_document.kms_python_lambda_layer_builder.json
+  policy      = data.aws_iam_policy_document.kms_terraform-aws-lambda-layer-builder.json
   tags        = var.tags
 }
 
-resource "aws_kms_alias" "python_lambda_layer_builder" {
+resource "aws_kms_alias" "terraform-aws-lambda-layer-builder" {
   name          = local.kms.alias
-  target_key_id = aws_kms_key.python_lambda_layer_builder.key_id
+  target_key_id = aws_kms_key.terraform-aws-lambda-layer-builder.key_id
 }
 
-data "aws_iam_policy_document" "kms_python_lambda_layer_builder" {
+data "aws_iam_policy_document" "kms_terraform-aws-lambda-layer-builder" {
   statement {
     sid    = "Enable IAM User Permissions"
     effect = "Allow"

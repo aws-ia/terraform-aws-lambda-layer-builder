@@ -23,20 +23,20 @@ resource "aws_iam_policy" "aws_lambda_vpc_access_execution" {
 # Lambda - Lambda Layer Builder
 ###################################################################
 
-resource "aws_iam_role" "python_lambda_layer_builder" {
-  name_prefix        = local.iam.python_lambda_layer_builder.name_prefix
+resource "aws_iam_role" "terraform-aws-lambda-layer-builder" {
+  name_prefix        = local.iam.terraform-aws-lambda-layer-builder.name_prefix
   assume_role_policy = data.aws_iam_policy_document.lambda_trust_policy.json
   tags               = var.tags
 }
 
-resource "aws_iam_role_policy" "python_lambda_layer_builder" {
-  name_prefix = local.iam.python_lambda_layer_builder.name_prefix
-  role        = aws_iam_role.python_lambda_layer_builder.id
-  policy      = data.aws_iam_policy_document.python_lambda_layer_builder.json
+resource "aws_iam_role_policy" "terraform-aws-lambda-layer-builder" {
+  name_prefix = local.iam.terraform-aws-lambda-layer-builder.name_prefix
+  role        = aws_iam_role.terraform-aws-lambda-layer-builder.id
+  policy      = data.aws_iam_policy_document.terraform-aws-lambda-layer-builder.json
 }
 
-resource "aws_iam_role_policy_attachment" "python_lambda_layer_builder" {
+resource "aws_iam_role_policy_attachment" "terraform-aws-lambda-layer-builder" {
   count      = length(local.iam.lambda_managed_policy_arns)
-  role       = aws_iam_role.python_lambda_layer_builder.name
+  role       = aws_iam_role.terraform-aws-lambda-layer-builder.name
   policy_arn = local.iam.lambda_managed_policy_arns[count.index]
 }

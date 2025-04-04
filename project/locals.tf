@@ -4,7 +4,7 @@ locals {
   }
   iam = {
     lambda_managed_policy_arns = length(var.vpc_subnet_ids) > 0 ? [aws_iam_policy.aws_lambda_basic_execution.arn, aws_iam_policy.aws_lambda_vpc_access_execution.arn] : [aws_iam_policy.aws_lambda_basic_execution.arn]
-    python_lambda_layer_builder = {
+    terraform-aws-lambda-layer-builder = {
       name_prefix = substr(module.label.id, 0, 36)
     }
   }
@@ -18,19 +18,19 @@ locals {
     function_name = substr(replace("${module.label.id}-${var.lambda_function_runtime}-${var.lambda_function_architecture}", ".", "_"), 0, 63)
     handler       = "lambda_function.lambda_handler"
     memory_size   = 10240
-    runtime       = var.lambda_function_runtime
+    # runtime       = var.lambda_function_runtime
     timeout       = 900
   }
   s3 = {
-    python_lambda_layer_builder = {
+    terraform-aws-lambda-layer-builder = {
       sse_algorithm = "aws:kms"
       versioning    = "Enabled"
     }
   }
-  solution_name    = "python-lambda-layer-builder"
+  solution_name    = "terraform-aws-lambda-layer-builder"
   random_suffix = random_string.bucket_suffix.result
   bucket_name = "python-lambda-layer-${local.random_suffix}"
-  target_s3_bucket = var.create_s3_bucket ? aws_s3_bucket.python_lambda_layer_builder["bucket"].id : local.bucket_name
+  target_s3_bucket = var.create_s3_bucket ? aws_s3_bucket.terraform-aws-lambda-layer-builder["bucket"].id : local.bucket_name
 
 }
 
