@@ -17,7 +17,6 @@ variable "lambda_function_runtime" {
   type        = string
   default     = "python3.13"
   validation {
-    # condition     =  contains(["python3.9", "python3.10", "python3.11", "python3.12", "python3.13"])
     condition     = can(regex("^python3\\.(9|10|11|12|13)$", var.lambda_function_runtime))
     error_message = "Runtime must be one of: python3.9, python3.10, python3.11, python3.12, python3.13"
   }
