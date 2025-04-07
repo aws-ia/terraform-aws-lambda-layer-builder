@@ -1,5 +1,5 @@
 [project]
-name = "python-lambda-layer-builder"
+name = "terraform-aws-lambda-layer-builder"
 version = "2.0.0"
 description = "Solution to build Python Lambda Layers"
 authors = [
