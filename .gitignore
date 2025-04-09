@@ -9,6 +9,9 @@
 # Crash log files
 crash.log
 
+# lock files
+**.lock*
+
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
 # .tfvars files are managed as part of configuration and so should be included in
 # version control.
@@ -34,3 +37,5 @@ results.json
 
 go.mod
 go.sum
+
+.DS_Store
