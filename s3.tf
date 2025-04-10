@@ -7,6 +7,16 @@ resource "aws_s3_bucket" "terraform-aws-lambda-layer-builder" {
   tags = var.tags
 }
 
+resource "aws_s3_bucket_public_access_block" "terraform-aws-lambda-layer-builder" {
+  for_each = var.create_s3_bucket ? { "bucket" = local.bucket_name } : {}
+  bucket   = aws_s3_bucket.terraform-aws-lambda-layer-builder[each.key].id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 resource "aws_s3_bucket_versioning" "terraform-aws-lambda-layer-builder" {
   for_each = var.create_s3_bucket ? { "bucket" = local.bucket_name } : {}
   bucket   = aws_s3_bucket.terraform-aws-lambda-layer-builder[each.key].id
