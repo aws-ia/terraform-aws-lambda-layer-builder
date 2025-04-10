@@ -1,9 +1,9 @@
 resource "aws_kms_key" "terraform-aws-lambda-layer-builder" {
-  #checkov:skip=CKV_AWS_7:KMS Key rotation is optional, if dictated by customer policies
-
-  description = local.kms.description
-  policy      = data.aws_iam_policy_document.kms_terraform-aws-lambda-layer-builder.json
-  tags        = var.tags
+  description             = local.kms.description
+  policy                  = data.aws_iam_policy_document.kms_terraform-aws-lambda-layer-builder.json
+  tags                    = var.tags
+  enable_key_rotation     = true
+  deletion_window_in_days = 7  # Minimum waiting period before deletion
 }
 
 resource "aws_kms_alias" "terraform-aws-lambda-layer-builder" {

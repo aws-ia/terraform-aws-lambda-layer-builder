@@ -5,6 +5,7 @@ locals {
 ###################################################################
 # Lambda - Lambda Layer Builder
 ###################################################################
+#tfsec:ignore:aws-lambda-enable-tracing
 resource "aws_lambda_function" "terraform-aws-lambda-layer-builder" {
   #checkov:skip=CKV_AWS_115:Concurrent execution limit not required
   #checkov:skip=CKV_AWS_272:Code signing not required
