@@ -4,7 +4,7 @@
 variable "lambda_function_architecture" {
   description = "Architecture for the Lambda Function / Layer being built (x86_64 or arm64)"
   type        = string
-  default     = "x86_64"  
+  default     = "x86_64"
   validation {
     condition     = contains(["x86_64", "arm64"], var.lambda_function_architecture)
     error_message = "Architecture must be either 'x86_64' or 'arm64'."
@@ -24,7 +24,7 @@ variable "lambda_function_runtime" {
 
 variable "tags" {
   description = "Map of tags to apply to resources"
-  type        = map(string)  # More specific type than map(any)
+  type        = map(string) # More specific type than map(any)
   default     = {}          # Empty map instead of null
 }
 
@@ -69,7 +69,7 @@ variable "label_namespace" {
 #########################################
 variable "cloudwatch_log_group_retention" {
   description = "CloudWatch Log Group retention in days (0 = Never Expire)"
-  type        = number  # Changed to number for better type safety
+  type        = number # Changed to number for better type safety
   default     = 0
   validation {
     condition     = can(index([0, 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653], var.cloudwatch_log_group_retention))
@@ -90,16 +90,6 @@ variable "create_s3_bucket" {
   description = "Controls S3 bucket creation"
   type        = bool
   default     = true
-}
-
-variable "s3_bucket_name" {
-  description = "Name for new S3 bucket or existing bucket to use"
-  type        = string
-
-  validation {
-    condition     = can(regex("^[a-z0-9][a-z0-9.-]*[a-z0-9]$", var.s3_bucket_name))
-    error_message = "S3 bucket name must be valid: lowercase alphanumeric characters, dots, and hyphens only."
-  }
 }
 
 variable "s3_kms_key_arn" {

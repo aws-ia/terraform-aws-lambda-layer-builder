@@ -90,16 +90,6 @@ variable "create_s3_bucket" {
   default     = true
 }
 
-variable "s3_bucket_name" {
-  description = "Name for new S3 bucket or existing bucket to use"
-  type        = string
-
-  validation {
-    condition     = can(regex("^[a-z0-9][a-z0-9.-]*[a-z0-9]$", var.s3_bucket_name))
-    error_message = "S3 bucket name must be valid: lowercase alphanumeric characters, dots, and hyphens only."
-  }
-}
-
 variable "s3_kms_key_arn" {
   description = "KMS key ARN for S3 bucket encryption"
   type        = string

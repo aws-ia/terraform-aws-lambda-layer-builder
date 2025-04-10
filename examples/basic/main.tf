@@ -4,5 +4,4 @@ module "terraform-aws-lambda-layer-builder" {
   label_env        = "dev"
   label_namespace  = "aws"
   s3_force_destroy = true
-  s3_bucket_name   = "test"
 }

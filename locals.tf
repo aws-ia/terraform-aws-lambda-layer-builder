@@ -29,7 +29,7 @@ locals {
   }
   solution_name    = "terraform-aws-lambda-layer-builder"
   random_suffix = random_string.bucket_suffix.result
-  bucket_name = "python-lambda-layer-${local.random_suffix}"
+  bucket_name = "terraform-aws-lambda-layer-${local.random_suffix}"
   target_s3_bucket = var.create_s3_bucket ? aws_s3_bucket.terraform-aws-lambda-layer-builder["bucket"].id : local.bucket_name
 
 }
