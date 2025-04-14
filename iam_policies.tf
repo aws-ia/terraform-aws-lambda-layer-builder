@@ -2,7 +2,7 @@
 # Role Policies
 ###########################################
 
-data "aws_iam_policy_document" "terraform-aws-lambda-layer-builder" {
+data "aws_iam_policy_document" "terraform_aws_lambda_layer_builder" {
   statement {
     effect = "Allow"
     actions = [
@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "terraform-aws-lambda-layer-builder" {
       "kms:GenerateDataKey"
     ]
     resources = [
-      var.s3_kms_key_arn != null ? var.s3_kms_key_arn : aws_kms_alias.terraform-aws-lambda-layer-builder.target_key_arn
+      var.s3_kms_key_arn != null ? var.s3_kms_key_arn : aws_kms_alias.terraform_aws_lambda_layer_builder.target_key_arn
     ]
   }
   statement {

@@ -1,4 +1,4 @@
-module "terraform-aws-lambda-layer-builder" {
+module "terraform_aws_lambda_layer_builder" {
   source = "../.."
 
   label_env        = "dev"

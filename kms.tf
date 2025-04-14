@@ -1,17 +1,17 @@
-resource "aws_kms_key" "terraform-aws-lambda-layer-builder" {
+resource "aws_kms_key" "terraform_aws_lambda_layer_builder" {
   description             = local.kms.description
-  policy                  = data.aws_iam_policy_document.kms_terraform-aws-lambda-layer-builder.json
+  policy                  = data.aws_iam_policy_document.kms_terraform_aws_lambda_layer_builder.json
   tags                    = var.tags
   enable_key_rotation     = true
   deletion_window_in_days = 7  # Minimum waiting period before deletion
 }
 
-resource "aws_kms_alias" "terraform-aws-lambda-layer-builder" {
+resource "aws_kms_alias" "terraform_aws_lambda_layer_builder" {
   name          = local.kms.alias
-  target_key_id = aws_kms_key.terraform-aws-lambda-layer-builder.key_id
+  target_key_id = aws_kms_key.terraform_aws_lambda_layer_builder.key_id
 }
 
-data "aws_iam_policy_document" "kms_terraform-aws-lambda-layer-builder" {
+data "aws_iam_policy_document" "kms_terraform_aws_lambda_layer_builder" {
   statement {
     sid    = "Enable IAM User Permissions"
     effect = "Allow"

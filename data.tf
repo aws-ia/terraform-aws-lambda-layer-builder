@@ -3,10 +3,11 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 data "aws_region" "current" {}
-
-data "aws_iam_policy" "AWSLambdaBasicExecutionRole" {
+# tflint-ignore: terraform_unused_declarations
+data "aws_iam_policy" "aws_lambda_basic_execution_role" {
   name = "AWSLambdaBasicExecutionRole"
 }
-data "aws_iam_policy" "AWSLambdaVPCAccessExecutionRole" {
+# tflint-ignore: terraform_unused_declarations
+data "aws_iam_policy" "aws_lambda_vpc_access_execution_role" {
   name = "AWSLambdaVPCAccessExecutionRole"
 }

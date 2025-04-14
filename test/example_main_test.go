@@ -16,7 +16,7 @@ const (
 
 func TestVariablesValidation(t *testing.T) {
 	// Generate and validate bucket name once at the start
-	//prefix := "terraform-aws-lambda-layer-builder"
+	//prefix := "terraform_aws_lambda_layer_builder"
 	//bucketName := generateTimestampBucketName(prefix)
 	//s3_bucket_name, err := validateS3BucketName(bucketName)
 	//if err != nil {
