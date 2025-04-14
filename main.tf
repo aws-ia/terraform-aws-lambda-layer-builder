@@ -1,12 +1,13 @@
 locals {
   lambda_powertools_layer_arn = "arn:aws:lambda:${data.aws_region.current.name}:017000801446:layer:AWSLambdaPowertoolsPythonV3-${replace(var.lambda_function_runtime, ".", "")}-${var.lambda_function_architecture}:7"
 }
-
+#tfsec:ignore:aws-lambda-enable-tracing
+#tfsec:ignore:aws-s3-enable-bucket-logging
 ###################################################################
 # Lambda - Lambda Layer Builder
 ###################################################################
+
 #tfsec:ignore:aws-lambda-enable-tracing
-# tflint-ignore: aws_lambda_function_invalid_runtime
 resource "aws_lambda_function" "terraform_aws_lambda_layer_builder" {
   #checkov:skip=CKV_AWS_115:Concurrent execution limit not required
   #checkov:skip=CKV_AWS_272:Code signing not required
