@@ -1,7 +1,8 @@
 ###########################################
 # Role Policies
 ###########################################
-
+#checkov:skip=CKV_AWS_290:Required for multiple deployment types
+#checkov:skip=CKV_AWS_355:Required for multiple deployment types
 data "aws_iam_policy_document" "terraform_aws_lambda_layer_builder" {
   statement {
     effect = "Allow"
