@@ -9,10 +9,10 @@ locals {
 
 #tfsec:ignore:aws-lambda-enable-tracing
 resource "aws_lambda_function" "terraform_aws_lambda_layer_builder" {
-  #checkov:skip=CKV_AWS_115:Concurrent execution limit not required
-  #checkov:skip=CKV_AWS_272:Code signing not required
-  #checkov:skip=CKV_AWS_116:DLQ is not required
-  #checkov:skip=CKV_AWS_50:X-ray tracing is not required
+#checkov:skip=CKV_AWS_115:Concurrent execution limit not required
+#checkov:skip=CKV_AWS_272:Code signing not required
+#checkov:skip=CKV_AWS_116:DLQ is not required
+#checkov:skip=CKV_AWS_50:X-ray tracing is not required
 
   filename         = data.archive_file.terraform_aws_lambda_layer_builder.output_path
   function_name    = local.lambda.function_name
@@ -95,6 +95,8 @@ resource "aws_iam_role_policy_attachment" "terraform_aws_lambda_layer_builder" {
 ###################################################################
 # S3 - S3 Bucket for Lambda Layer Builder
 ###################################################################
+#checkov:skip=CKV_AWS_290:Required for multiple deployment types
+#checkov:skip=CKV_AWS_355:Required for multiple deployment types
 
 resource "aws_s3_bucket" "terraform_aws_lambda_layer_builder" {
   for_each = var.create_s3_bucket ? { "bucket" = local.bucket_name } : {}
