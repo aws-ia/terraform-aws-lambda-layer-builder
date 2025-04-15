@@ -28,6 +28,12 @@ variable "tags" {
   default     = {}          # Empty map instead of null
 }
 
+variable "region" {
+  type        = string
+  description = "AWS region to deploy the resources"
+  default     = "us-east-1"
+}
+
 #########################################
 # Label / Naming Variables
 #########################################
