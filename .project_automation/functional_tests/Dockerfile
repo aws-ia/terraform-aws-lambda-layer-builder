@@ -7,4 +7,4 @@ RUN cd /tmp && \
 RUN curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
 RUN pip3 install checkov
-COPY ./config/.checkov.yaml ./
+COPY .config/.checkov.yaml ./
