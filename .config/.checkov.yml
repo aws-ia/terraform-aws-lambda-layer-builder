@@ -1,0 +1,24 @@
+download-external-modules: False
+evaluate-variables: true
+directory:
+- ./
+framework:
+- terraform
+skip-check:
+- CKV2_GCP*
+- CKV_AZURE*
+- CKV2_AZURE*
+- CKV_TF_1 # default to Terraform registry instead of Git
+- CKV_AWS_290
+- CKV_AWS_355
+- CKV_AWS_115
+- CKV_AWS_272
+- CKV_AWS_116
+- CKV_AWS_50
+- CKV2_AWS_62
+- CKV2_AWS_61
+- CKV_AWS_144
+summary-position: bottom
+output: 'cli'
+compact: True
+quiet: True
