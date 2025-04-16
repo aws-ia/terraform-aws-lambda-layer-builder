@@ -9,6 +9,8 @@
 PROJECT_PATH=${BASE_PATH}/project
 PROJECT_TYPE_PATH=${BASE_PATH}/projecttype
 
+cd ${PROJECT_PATH}
+
 #********** helper functions *************
 pre_entrypoint() {
     if [ -f ${PROJECT_PATH}/.config/static_tests/pre-entrypoint-helpers.sh ]; then
