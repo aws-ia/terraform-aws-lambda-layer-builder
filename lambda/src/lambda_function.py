@@ -52,7 +52,7 @@ boto3.set_stream_logger(level=logger.log_level)
 boto3.set_stream_logger("botocore", level=logger.log_level)
 
 # Define constants
-TMP_DIR = "/tmp/"
+TMP_DIR = "/tmp/" # nosec B108
 WORKING_DIR = TMP_DIR + "lambda-layer/"
 
 
@@ -79,16 +79,25 @@ def pip_install(requirements: str, install_dir: str) -> None:
     :param install_dir: directory in which to pip install packages into
     """
 
-    req_path = "/tmp/requirements.txt"
+    req_path = "/tmp/requirements.txt" # nosec B108
     with open(req_path, "w", encoding="utf-8") as f:
         f.write(requirements)
 
     logger.info("Downloading packages - ")
-    subprocess.call("cat " + req_path)
+    with open(req_path, "r", encoding="utf-8") as f:
+        logger.info(f.read())
 
-    retcode = subprocess.call(
-        "pip3 install -r " + req_path + " --target " + install_dir
+    result = subprocess.run(
+        ["pip3", "install", "-r", req_path, "--target", install_dir],
+        check=False,
+        capture_output=True,
+        text=True
     )
+    retcode = result.returncode
+    if result.stdout:
+        logger.info(result.stdout)
+    if result.stderr:
+        logger.error(result.stderr)
 
     if retcode != 0:
         raise Exception(
@@ -145,7 +154,7 @@ def zip_directory(dir_path: str) -> str:
     :param dir_path: Path to directory to be zipped
     :return: Path to the zip file
     """
-    zip_file_path = "/tmp/layer.zip"
+    zip_file_path = "/tmp/layer.zip" # nosec B108
     logger.info("Creating .zip file - " + zip_file_path)
 
     with zipfile.ZipFile(zip_file_path, "w", zipfile.ZIP_DEFLATED) as zip_file_handle:
