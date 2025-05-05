@@ -230,7 +230,7 @@ data "aws_iam_policy_document" "kms_terraform_aws_lambda_layer_builder" {
     sid    = "Allow CloudWatch Logs access"
     effect = "Allow"
     principals {
-      type        = "Service"
+      type        = "Service"Service"
       identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
     }
     actions = [
