@@ -108,6 +108,7 @@ resource "aws_s3_bucket" "terraform_aws_lambda_layer_builder" {
 }
 
 # Logging bucket for S3 access logs
+# Exempting Bucket logging as this is a logging bucket and preventing a circular dependency
 #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "access_logs" {
   for_each = var.create_s3_bucket ? { "bucket" = "${local.bucket_name}-logs" } : {}
