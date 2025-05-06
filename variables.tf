@@ -35,6 +35,15 @@ variable "region" {
 }
 
 #########################################
+# Label / Lambda Variables
+#########################################
+variable "lambda_ephemeral_storage" {
+  description = "Amount of ephemeral storage (/tmp) in MB allocated to the Lambda function"
+  type        = number
+  default     = 512 # Default Lambda ephemeral storage
+}
+
+#########################################
 # Label / Naming Variables
 #########################################
 variable "label_env" {

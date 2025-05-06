@@ -19,6 +19,7 @@ locals {
     handler       = "lambda_function.lambda_handler"
     memory_size   = 10240
     # runtime       = var.lambda_function_runtime
+    storage       = var.lambda_ephemeral_storage
     timeout       = 900
   }
   s3 = {
