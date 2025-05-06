@@ -22,6 +22,9 @@ resource "aws_lambda_function" "terraform_aws_lambda_layer_builder" {
   kms_key_arn      = aws_kms_alias.terraform_aws_lambda_layer_builder.target_key_arn
   layers           = [local.lambda_powertools_layer_arn]
   source_code_hash = data.archive_file.terraform_aws_lambda_layer_builder.output_base64sha256
+  ephemeral_storage {
+    size = local.lambda.storage
+  }
 
   architectures = local.lambda.architectures
   # tflint-ignore: aws_lambda_function_invalid_runtime
@@ -29,7 +32,6 @@ resource "aws_lambda_function" "terraform_aws_lambda_layer_builder" {
 
   timeout     = local.lambda.timeout
   memory_size = local.lambda.memory_size
-
   tags = var.tags
   environment {
     variables = {
@@ -231,22 +233,6 @@ data "aws_iam_policy_document" "kms_terraform_aws_lambda_layer_builder" {
     effect = "Allow"
     principals {
       type        = "Service"
-      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
-    }
-    actions = [
-      "kms:Encrypt*",
-      "kms:Decrypt*",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:Describe*"
-    ]
-    resources = ["*"]
-    condition {
-      test     = "ArnLike"
-      variable = "kms:EncryptionContext:aws:logs:arn"
-      values   = ["arn:${data.aws_partition.current.id}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
-    }
-  }   = "Service"Service"
       identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
     }
     actions = [
