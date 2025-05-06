@@ -230,7 +230,23 @@ data "aws_iam_policy_document" "kms_terraform_aws_lambda_layer_builder" {
     sid    = "Allow CloudWatch Logs access"
     effect = "Allow"
     principals {
-      type        = "Service"Service"
+      type        = "Service"
+      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
+    }
+    actions = [
+      "kms:Encrypt*",
+      "kms:Decrypt*",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:Describe*"
+    ]
+    resources = ["*"]
+    condition {
+      test     = "ArnLike"
+      variable = "kms:EncryptionContext:aws:logs:arn"
+      values   = ["arn:${data.aws_partition.current.id}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
+    }
+  }   = "Service"Service"
       identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
     }
     actions = [
