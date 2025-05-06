@@ -92,7 +92,6 @@ def pip_install(requirements: str, install_dir: str) -> None:
         check=False,
         capture_output=True,
         text=True
-        shell=True
     )
     retcode = result.returncode
     if result.stdout:

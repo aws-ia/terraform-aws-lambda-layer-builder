@@ -22,6 +22,9 @@ resource "aws_lambda_function" "terraform_aws_lambda_layer_builder" {
   kms_key_arn      = aws_kms_alias.terraform_aws_lambda_layer_builder.target_key_arn
   layers           = [local.lambda_powertools_layer_arn]
   source_code_hash = data.archive_file.terraform_aws_lambda_layer_builder.output_base64sha256
+  ephemeral_storage {
+    size = local.lambda.storage
+  }
 
   architectures = local.lambda.architectures
   # tflint-ignore: aws_lambda_function_invalid_runtime
@@ -29,7 +32,6 @@ resource "aws_lambda_function" "terraform_aws_lambda_layer_builder" {
 
   timeout     = local.lambda.timeout
   memory_size = local.lambda.memory_size
-
   tags = var.tags
   environment {
     variables = {
